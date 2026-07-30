@@ -8,7 +8,7 @@ steps:int = 0
 direction:str = ""
 dialValue:int = dial_circle[50]
 hit_zero_counter:int = 0
-print(dial_circle[50])
+print(f'dial_circle starting point = {dial_circle[50]}')
 
 def process_moves(moves: list[str]) -> None:
     global steps, direction, dialValue, hit_zero_counter
@@ -16,15 +16,23 @@ def process_moves(moves: list[str]) -> None:
         direction = line[0]
         steps = int(line[1:].strip())
         if direction.lower() == 'r':
-            dialValue = dial_circle[(dial_circle.index(dialValue) + steps) % len(dial_circle)]
-            if dialValue == 0:
-                hit_zero_counter += 1
-            #print(f'dialValue = {dialValue}')
-            #sleep(0.5)  # Pause for 0.5 seconds between moves
+            for i in range(steps):
+                dialValue = dial_circle[(dial_circle.index(dialValue) + 1) % len(dial_circle)]
+                # print(f'dialValue = {dialValue}')
+                # sleep(0.05)  # Pause for 0.5 seconds between moves
+                if dialValue == 0:
+                    hit_zero_counter += 1
+                    # print(f"Hit zero! Current zero counter: {hit_zero_counter}")
+            # dialValue = dial_circle[(dial_circle.index(dialValue) + steps) % len(dial_circle)]
         elif direction.lower() == 'l':
-            dialValue = dial_circle[(dial_circle.index(dialValue) - steps) % len(dial_circle)]
-            if dialValue == 0:
-                hit_zero_counter += 1
+            for i in range(steps):
+                dialValue = dial_circle[(dial_circle.index(dialValue) - 1) % len(dial_circle)]
+                # print(f'dialValue = {dialValue}')
+                # sleep(0.05)  # Pause for 0.5 seconds between moves
+                if dialValue == 0:
+                    hit_zero_counter += 1
+                    # print(f"Hit zero! Current zero counter: {hit_zero_counter}")
+            # dialValue = dial_circle[(dial_circle.index(dialValue) - steps) % len(dial_circle)]
             #sleep(0.5)  # Pause for 0.5 seconds between moves
             #print(f'dialValue = {dialValue}')
         else:
